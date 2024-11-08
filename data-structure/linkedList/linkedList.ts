@@ -41,6 +41,7 @@ export class LinkedList<T> {
 
   private searchNode(index: number): Node<T> | null {
     if (!this.length) return null;
+
     let current = this.head;
     let count = 0;
     while (count < index) {
@@ -51,37 +52,38 @@ export class LinkedList<T> {
     return current;
   }
 
-  deleteAt(index: number): void {
+  deleteAt(index: number): T | null {
     const target = this.searchNode(index);
-    if ((target === this.head && this.length) === 1) {
+    if (!target) return null;
+
+    const value = target.value;
+
+    if (target === this.head && this.length === 1) {
       this.head = null;
       this.tail = null;
     } else if (target === this.head) {
-      if (target) {
-        this.head = target.next;
-      }
-      if (this.head) {
-        this.head.prev = null;
-      }
+      this.head = target.next;
+      if (this.head) this.head.prev = null;
     } else if (target === this.tail) {
-      this.tail = target?.prev as Node<T>;
+      this.tail = target.prev as Node<T>;
       this.tail.next = null;
     } else {
-      if (target?.prev) target.prev.next = target.next;
-      if (target?.next) target.next.prev = target.prev;
+      if (target.prev) target.prev.next = target.next;
+      if (target.next) target.next.prev = target.prev;
     }
 
     this.length--;
+    return value;
   }
 
-  deleteLast(): void {
+  deleteLast(): T | null {
     if (this.length === 0) throw new Error("삭제할 노드가 존재하지 않습니다");
-    this.deleteAt(this.length - 1);
+    return this.deleteAt(this.length - 1);
   }
 
-  deleteFirst(): void {
+  deleteFirst(): T | null {
     if (this.length === 0) throw new Error("삭제할 노드가 존재하지 않습니다");
-    this.deleteAt(0);
+    return this.deleteAt(0);
   }
 
   printAll(): string | null {

@@ -1,14 +1,14 @@
 import { LinkedList } from "../linkedList/linkedList";
 
-class Stack<T> {
+export class Stack<T> {
   private linkedList = new LinkedList<T>();
 
   push(value: T): void {
     this.linkedList.insertLast(value);
   }
 
-  pop(): void {
-    this.linkedList.deleteLast();
+  pop(): T | null {
+    return this.linkedList.deleteLast();
   }
 
   top(): T | null {

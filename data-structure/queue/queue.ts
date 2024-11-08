@@ -23,10 +23,3 @@ class Queue<T> {
     return this.linkedList.printAll();
   }
 }
-
-const queue = new Queue<string>();
-queue.enqueue("dd");
-queue.enqueue("안녕");
-queue.enqueue("하세요");
-
-console.log(queue.printAll());
