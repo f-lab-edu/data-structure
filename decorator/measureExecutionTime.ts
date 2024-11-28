@@ -1,4 +1,4 @@
-function MeasureExecutionTime(
+export function MeasureExecutionTime(
   target: any,
   propertyName: string,
   descriptor: PropertyDescriptor
@@ -13,16 +13,3 @@ function MeasureExecutionTime(
     return result;
   };
 }
-
-class Processor {
-  @MeasureExecutionTime
-  processLargeData(data: number[]): number {
-    return data.reduce((a, c) => a + c, 0);
-  }
-}
-
-const processor = new Processor();
-const largeData = Array(10000)
-  .fill(0)
-  .map((_, i) => i);
-processor.processLargeData(largeData);
